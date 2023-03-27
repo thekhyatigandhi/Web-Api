@@ -1,5 +1,6 @@
 var timerEl = document.querySelector(".timer");
 var startBtn = document.querySelector(".start-button");
+var headingEl = document.querySelector(".heading");
 var questionsEl = document.querySelector(".questions");
 var answersEl = document.querySelector(".answers");
 var paragraphEl = document.querySelector(".paragraph");
@@ -12,16 +13,14 @@ var btnContainerEl = document.querySelector(".buttons-container");
 var highScores = document.querySelector("#highScores");
 // to store highscores
 var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
-
+console.log(answersEl);
 //added event listener to the start button
 startBtn.addEventListener("click", startQuiz);
-function startQuiz() {
-  var timeLeft = 60;
-  var score = 0;
 
+function startQuiz() {
   timer();
   question1();
-  answersEl();
+  // answersEl();
 }
 
 linkEl.addEventListener("click", highScores);
@@ -35,36 +34,37 @@ function wrongAnswer() {
   comments.innerHTML = "Wrong Answer";
 }
 
-function answersEl(answerText, callback) {
+function addAnswer(answerText, callBack) {
   var buttonEl = document.createElement("button");
   buttonEl.textContent = answerText;
-  buttonEl.addEventListener("click", callback);
-  questionsEl.appendChild(buttonEl);
+  buttonEl.addEventListener("click", callBack);
+  console.log(buttonEl);
+  answersEl.appendChild(buttonEl);
 }
 
 function question1() {
   questionsEl.innerHTML =
     "Which of the following is not a primitive data type in JavaScript?";
-  answersEl("Numbers", wrongAnswer);
-  answersEl("Objects", correctAnswer); //correct Answer
-  answersEl("Strings", wrongAnswer);
-  answersEl("Boolean", wrongAnswer);
-  question2();
+  addAnswer("Numbers", wrongAnswer);
+  addAnswer("Objects", correctAnswer); //correct Answer
+  addAnswer("Strings", wrongAnswer);
+  addAnswer("Boolean", wrongAnswer);
+  //question2();
 }
 
 function question2() {
   questionsEl.innerHTML =
     "What is the difference between == and === in JavaScript?";
-  answersEl("There is no difference between == and ===", wrongAnswer);
-  answersEl(
+  addAnswer("There is no difference between == and ===", wrongAnswer);
+  addAnswer(
     "== compares values, while === compares values and types",
     correctAnswer
   ); //correct Answer
-  answersEl(
+  addAnswer(
     "=== compares values, while == compares values and types",
     wrongAnswer
   );
-  answersEl(
+  addAnswer(
     "== and === are not valid comparison operators in JavaScript",
     wrongAnswer
   );
@@ -93,6 +93,10 @@ function question4() {
   clearInterval(timeInterval);
 }
 
+function viewHighScores() {
+  //NEED HELP HERE
+}
+
 function timer() {
   var timeLeft = 60;
   var timeInterval = setInterval(function () {
@@ -100,7 +104,7 @@ function timer() {
       timerEl.textContent = "Time: " + timeLeft + " seconds";
       timeLeft--;
     } else if (wrongAnswer()) {
-      timeLeft -= 10;
+      timeLeft = -10;
       if (timeLeft <= 0) {
         timerEl.textContent = "Your Time Is Up";
         clearInterval(timeInterval);
@@ -111,3 +115,7 @@ function timer() {
     }
   }, 1000);
 }
+
+//NEED HELP SO THAT MY ANSWEREL IS DISPLAYED
+// WITH THE HIGHSCORE
+// AND THE INPUT BOX TO SHOW AT THE END
