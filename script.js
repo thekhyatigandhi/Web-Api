@@ -49,8 +49,8 @@ function question1() {
   answersEl("Objects", correctAnswer); //correct Answer
   answersEl("Strings", wrongAnswer);
   answersEl("Boolean", wrongAnswer);
+  question2();
 }
-question2();
 
 function question2() {
   questionsEl.innerHTML =
@@ -68,8 +68,8 @@ function question2() {
     "== and === are not valid comparison operators in JavaScript",
     wrongAnswer
   );
+  question3();
 }
-question3();
 
 function question3() {
   questionsEl.innerHTML = "Which of the following is not a loop in JavaScript?";
@@ -77,8 +77,8 @@ function question3() {
   answersEl("while", wrongAnswer);
   answersEl("foreach", correctAnswer); //correct Answer
   answersEl("do while", wrongAnswer);
+  question4();
 }
-question4();
 
 function question4() {
   questionsEl.innerHTML =
@@ -90,6 +90,7 @@ function question4() {
   answersEl("It refers to the global object.", wrongAnswer);
   answersEl("It refers to the function itself.", wrongAnswer);
   answersEl("It refers to the parent object.", wrongAnswer);
+  clearInterval(timeInterval);
 }
 
 function timer() {
@@ -110,4 +111,3 @@ function timer() {
     }
   }, 1000);
 }
-timer();
