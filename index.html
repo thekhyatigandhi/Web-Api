@@ -9,7 +9,8 @@
   </head>
   <body>
     <header>
-      <div id = "highScores"><a href="#highScores">View Highscore</a></div>
+      <div id = "highScores"><a href="#" id="highScores-link" >View Highscore</a>
+      <ul id ="highScores-list"></ul></div>
       <div class="timer">Time</div>
     </header>
     
@@ -31,11 +32,10 @@
       <h2 id="comments"></h2> 
 </section>
 
-
   <section class="info-container hidden">
-    
-      <form state="hidden" action="">
-        <input type="text" placeholder="Enter your initials"/>
+        <form id="submit-form">
+          <input type="text" id="initials-input" placeholder="Enter your initials">
+      
         <div class="buttons-container"></div>
         <button type="submit" id="submit-btn">Submit</button>
 <button type="button" id="restart-btn">Restart Quiz</button>
