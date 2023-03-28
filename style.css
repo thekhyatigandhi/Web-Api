@@ -35,9 +35,11 @@ h1 {
 .paragraph {
   justify-content: center;
 }
+.hidden {
+  display: none;
+}
 
 .container {
-  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -49,8 +51,8 @@ h1 {
   width: 200px;
   font-size: 20px;
   text-align: center;
-  box-shadow: 0px 3px 3px 0px;
   cursor: grab;
+  box-shadow: 5px 5px;
 }
 
 .start-button:hover {
@@ -86,4 +88,18 @@ input {
 }
 
 .buttons-container {
+  padding: 10px;
+}
+
+.answers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+}
+
+button {
+  margin: 10px;
+  box-shadow: 5px 5px;
 }

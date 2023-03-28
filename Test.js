@@ -1,154 +1,155 @@
+// Select HTML elements
 var timerEl = document.querySelector(".timer");
 var startBtn = document.querySelector(".start-button");
 var questionsEl = document.querySelector(".questions");
 var answersEl = document.querySelector(".answers");
-var paragraphEl = document.querySelector(".paragraph");
-var comments = document.querySelector("#comments");
-var infoContainerEl = document.querySelector(".info-container");
-var form = document.querySelector(".form");
+var commentsEl = document.querySelector("#comments");
+var formEl = document.querySelector(".form");
 var inputEl = document.querySelector("input");
-var linkEl = document.querySelector("a");
-var btnContainerEl = document.querySelector(".buttons-container");
+var highScoresEl = document.querySelector("#highScores");
+var scoreListEl = document.querySelector(".score-list");
 
-// to store highscores
-var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+// Quiz state
+var timeLeft = 60;
+var score = 0;
+var currentQuestionIndex = 0;
 
-//added event listener to the start button and the viewhighscore link
-startBtn.addEventListener("click", startQuiz);
-linkEl.addEventListener("click", viewHighScores);
-
-// giving a function to start the quiz
-function startQuiz() {
-  var timeLeft = 60;
-  var questionIndex = 0;
-  var score = 0;
-
-  //calling the timer and display question to start when the start button is clicked
-  timer();
-  displayQuestion();
-
-  function displayQuestion() {
-    var currentQuestion = questions[questionIndex];
-    questionsEl.innerHTML = currentQuestion.question;
-    answersEl.innerHTML = "";
-    currentQuestion.choices.forEach(function (choice) {
-      createButton(choice, checkAnswer);
-    });
-  }
-
-  function checkAnswer() {
-    var selectedAnswer = this.textContent;
-    var currentQuestion = questions[questionIndex];
-    if (selectedAnswer === currentQuestion.answer) {
-      comments.innerHTML = "Correct!";
-      score++;
-    } else {
-      comments.innerHTML = "Wrong!";
-      timeLeft -= 10;
-    }
-    questionIndex++;
-    if (questionIndex === questions.length || timeLeft <= 0) {
-      gameOver();
-    } else {
-      displayQuestion();
-    }
-  }
-
-  function gameOver() {
-    clearInterval(timeInterval);
-    timerEl.textContent = "Game over!";
-    questionsEl.innerHTML = "";
-    answersEl.innerHTML = "";
-    comments.innerHTML = "";
-    infoContainerEl.style.display = "block";
-    form.addEventListener("submit", function (event) {
-      event.preventDefault();
-      var initials = inputEl.value.toUpperCase();
-      var newScore = { initials: initials, score: score };
-      highScores.push(newScore);
-      localStorage.setItem("highScores", JSON.stringify(highScores));
-      viewHighScores();
-    });
-  }
-
-  function timer() {
-    var timeInterval = setInterval(function () {
-      if (timeLeft > 0) {
-        timerEl.textContent = "Time: " + timeLeft + " seconds";
-        timeLeft--;
-      } else {
-        gameOver();
-      }
-    }, 1000);
-  }
-}
-
-function viewHighScores() {
-  clearInterval(timeInterval);
-  timerEl.style.display = "none";
-  questionsEl.innerHTML = "High Scores";
-  answersEl.innerHTML = "";
-  highScores.sort(function (a, b) {
-    return b.score - a.score;
-  });
-  highScores.forEach(function (score) {
-    var scoreEl = document.createElement("li");
-    scoreEl.textContent = score.initials + ": " + score.score;
-    answersEl.appendChild(scoreEl);
-  });
-  infoContainerEl.style.display = "none";
-  comments.innerHTML = "";
-}
-
-function createButton(text, clickHandler) {
-  var button = document.createElement("button");
-  button.textContent = text;
-  button.addEventListener("click", clickHandler);
-  answersEl.appendChild(button);
-}
-
-var questions = [
+// Quiz questions
+var quizQuestions = [
   {
     question:
       "Which of the following is not a primitive data type in JavaScript?",
-    choices: ["Numbers", "Objects", "Strings", "Boolean"],
-    answer: "Objects",
+    answers: ["Numbers", "Objects", "Strings", "Boolean"],
+    correctIndex: 1,
   },
   {
     question: "What is the difference between == and === in JavaScript?",
-    choices: [
+    answers: [
       "There is no difference between == and ===",
       "== compares values, while === compares values and types",
-      "=== compares values, while == compares values and types, but performs type coercion",
-      "=== performs a strict comparison, while == performs a loose comparison",
+      "=== compares values, while == compares values and types",
+      "== and === are not valid comparison operators in JavaScript",
     ],
-    answer:
-      "=== performs a strict comparison, while == performs a loose comparison",
+    correctIndex: 1,
   },
   {
-    question: "What does the acronym 'DOM' stand for?",
-    choices: [
-      "Document Object Model",
-      "Direct Object Mapping",
-      "Data Object Manager",
-      "Document Object Mapping",
-    ],
-    answer: "Document Object Model",
+    question: "Which of the following is not a loop in JavaScript?",
+    answers: ["for", "foreach", "do while", "while"],
+    correctIndex: 1,
   },
   {
-    question: "What does the 'this' keyword refer to in JavaScript?",
-    choices: [
-      "The current function",
-      "The global object",
-      "The parent object",
-      "The object that the function is a method of",
+    question: "What is the purpose of the keyword THIS in JavaScript?",
+    answers: [
+      "It refers to an object that is executing the current piece of code.",
+      "It refers to the global object.",
+      "It refers to the function itself.",
+      "It refers to the parent object.",
     ],
-    answer: "The object that the function is a method of",
-  },
-  {
-    question:
-      "What is the output of the following code: console.log(typeof null);",
-    choices: ["'null'", "'undefined'", "'object'", "'string'"],
-    answer: "'object'",
+    correctIndex: 0,
   },
 ];
+
+// Add event listeners
+startBtn.addEventListener("click", startQuiz);
+highScoresEl.addEventListener("click", viewHighScores);
+
+// Quiz functions
+function startQuiz() {
+  // Hide start button and show questions
+  startBtn.classList.add("hide");
+  questionsEl.classList.remove("hide");
+  // Start timer and show first question
+  timer();
+  showQuestion();
+}
+
+function showQuestion() {
+  // Get current question
+  var currentQuestion = quizQuestions[currentQuestionIndex];
+  // Set question text
+  questionsEl.textContent = currentQuestion.question;
+  // Clear previous answers
+  answersEl.innerHTML = "";
+  // Add new answers
+  currentQuestion.answers.forEach(function (answer, index) {
+    var buttonEl = document.createElement("button");
+    buttonEl.textContent = answer;
+    buttonEl.addEventListener("click", function () {
+      // Check answer and show feedback
+      if (index === currentQuestion.correctIndex) {
+        commentsEl.textContent = "Correct!";
+        score++;
+      } else {
+        commentsEl.textContent = "Wrong!";
+        timeLeft -= 10;
+      }
+      // Move to next question or end quiz
+      currentQuestionIndex++;
+      if (currentQuestionIndex === quizQuestions.length || timeLeft <= 0) {
+        endQuiz();
+      } else {
+        showQuestion();
+      }
+    });
+    answersEl.appendChild(buttonEl);
+  });
+}
+
+function endQuiz() {
+  // Stop timer
+  clearInterval(timerInterval);
+  // Hide questions and show form to enter initials
+  questionsEl.classList.add("hide");
+  formEl.classList.remove("hide");
+  // Set final score
+  var finalScoreEl = document.querySelector("#finalScore");
+  finalScoreEl.textContent = score;
+}
+
+function viewHighScores() {
+  // Hide quiz elements and show high scores
+  startBtn.classList.add("hide");
+  questionsEl.classList.add("hide");
+  formEl.classList.add("hide");
+  highScoresEl.classList.add("hide");
+  scoreListEl.classList.remove("hide");
+  // Populate score list with stored scores
+  var storedScores = JSON.parse(localStorage.getItem("highScores")) || [];
+  storedScores.forEach(function (score) {
+    var scoreEl = document.createElement("li");
+    scoreEl.textContent = score.initials + " - " + score.score;
+    scoreListEl.appendChild(scoreEl);
+  });
+}
+
+function timer() {
+  // Set timer interval
+  timerInterval = setInterval(function () {
+    // Update time left
+    timeLeft--;
+    timerEl.textContent = "Time: " + timeLeft;
+    // End quiz if time runs out
+    if (timeLeft <= 0) {
+      endQuiz();
+    }
+  }, 1000);
+}
+
+function saveScore(event) {
+  event.preventDefault();
+  // Get user initials
+  var initials = inputEl.value.trim();
+  // Return if no initials entered
+  if (initials === "") {
+    return;
+  }
+  // Store score in local storage
+  var storedScores = JSON.parse(localStorage.getItem("highScores")) || [];
+  storedScores.push({ initials: initials, score: score });
+  localStorage.setItem("highScores", JSON.stringify(storedScores));
+  // Show high scores
+  viewHighScores();
+}
+
+// Add event listener to form submit button
+formEl.addEventListener("submit", saveScore);
