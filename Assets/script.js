@@ -30,6 +30,7 @@ var questions = [
     answer: "Object",
     options: ["Number", "String", "Boolean", "Object"],
   },
+
   {
     question: "What is the difference between == and === in JavaScript?",
     answer: " == compares values, while === compares values and types",
@@ -93,11 +94,10 @@ function displayQuestions() {
 
 function checkAnswer() {
   if (this.value !== questions[currentQuestionIndex].answer) {
-    // comments.innerHTML = "Wrong Answer";
+    comments.innerHTML = "Wrong Answer";
     timeLeft -= 10;
     timerEl.textContent = "Time: " + timeLeft + " seconds";
-  }
-  // comments.innerHTML = "Correct Answer";
+  } else comments.innerHTML = "Correct Answer";
   currentQuestionIndex++;
 
   if (currentQuestionIndex === questions.length || timeLeft <= 0) {

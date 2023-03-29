@@ -1,7 +1,5 @@
 * {
   box-sizing: border-box;
-  padding: 5px;
-  margin: 0px;
   font-family: "Courier New", Courier, monospace;
 }
 
@@ -17,6 +15,7 @@ body {
 header {
   display: flex;
   justify-content: space-between;
+  font-size: 20px;
 }
 
 a {
@@ -25,11 +24,11 @@ a {
 }
 
 a:hover {
-  color: blueviolet;
+  color: crimson;
 }
 
 .start-screen {
-  justify-content: center;
+  display: block;
   align-items: center;
 }
 h1 {
@@ -43,6 +42,20 @@ h1 {
   justify-content: center;
   padding: 0px 200px;
 }
+
+#start-btn {
+  display: block;
+  margin: 0 auto;
+  width: 200px;
+  font-size: 20px;
+  text-align: center;
+  cursor: grab;
+}
+
+#start-btn:hover {
+  background-color: palegreen;
+}
+
 .hidden {
   display: none;
 }
@@ -53,14 +66,6 @@ h1 {
   justify-content: center;
   margin-top: 50px;
   padding: 30px 200px;
-}
-
-.start-button {
-  width: 200px;
-  font-size: 20px;
-  text-align: center;
-  cursor: grab;
-  box-shadow: 5px 5px;
 }
 
 .start-button:hover {
@@ -107,4 +112,24 @@ input {
 button {
   margin: 10px;
   box-shadow: 5px 5px;
+}
+
+@media only screen and (max-width: 480px) {
+  /* Adjust styles for mobile devices here */
+
+  .paragraph {
+    padding: 0px 20px;
+  }
+
+  .container {
+    padding: 30px 20px;
+  }
+
+  .answers {
+    justify-content: center;
+  }
+
+  button {
+    font-size: 16px;
+  }
 }
