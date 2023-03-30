@@ -23,7 +23,7 @@ To use this website, read the instructions carefully and click on the start butt
 Make sure you answer all the questions correctly to secure a place in the highscore.<br />
 When the quiz ends, you will be scored on the time remaining.<br />
 Enter your initials in the box provided. <br />
-If you want to replay, click on the replay button <br />
+If you want to restart the quiz, click on the restart quiz button <br />
 To view the highscores click on the view highscore tab <br />
 
 ## Credits
