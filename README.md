@@ -15,7 +15,7 @@ The link to the deployed page - https://thekhyatigandhi.github.io/Web-Api/
 
 The following animation shows the web application's appearance and functionality:
 
-![portfolio demo](./Assets/Password-Generator.gif)
+![portfolio demo](./Assets/multiple-choice-quiz.gif)
 
 ## Usage
 
