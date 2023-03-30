@@ -23,6 +23,7 @@ var score = 0;
 var currentQuestionIndex = 0;
 var timeInterval;
 
+// creating variable questions with options and answers
 var questions = [
   {
     question:
@@ -83,6 +84,7 @@ function addAnswer(answerText) {
   answersEl.appendChild(buttonEl);
 }
 
+// creating a function to display the questions
 function displayQuestions() {
   var currentQ = questions[currentQuestionIndex];
   questionsEl.textContent = currentQ.question;
@@ -92,6 +94,7 @@ function displayQuestions() {
   }
 }
 
+// function to check if the answeres are right or wrong and if the answer is wrong, time will be deducted by 10 seconds
 function checkAnswer() {
   if (this.value !== questions[currentQuestionIndex].answer) {
     comments.innerHTML = "Wrong Answer";
@@ -107,6 +110,7 @@ function checkAnswer() {
   }
 }
 
+// when the game is over, the highscore list will show up
 function gameOver() {
   clearInterval(timeInterval);
   document.querySelector(".container").classList.add("hidden"); //cant overwrite any display property
@@ -115,6 +119,7 @@ function gameOver() {
   showHighScores();
 }
 
+// json.parse to retrive the saved highscores
 var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
 var saveHighScore = (initials, score) => {
   const newHighScore = {
@@ -130,10 +135,10 @@ var saveHighScore = (initials, score) => {
 };
 
 var showHighScores = () => {
-  // Clear existing list items
+  // Clearing existing list items
   highScoresListEl.innerHTML = "";
 
-  // Generate new list items
+  // Generating new list items
   highScores.forEach((highScore) => {
     var liEl = document.createElement("li");
     liEl.textContent = `${highScore.initials}: ${highScore.score}`;
@@ -147,6 +152,7 @@ highScoresEl.addEventListener("click", (event) => {
   showHighScores();
 });
 
+// submitting the form
 submitFormEl.addEventListener("submit", (event) => {
   event.preventDefault();
 
@@ -174,7 +180,7 @@ function timer() {
     timerEl.textContent = "Time: " + timeLeft + " seconds";
   }, 1000);
 }
-
+// the restart button takes you back to the main page
 restartbtn.addEventListener("click", function () {
   document.location.reload();
 });

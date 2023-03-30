@@ -29,6 +29,7 @@ To view the highscores click on the view highscore tab <br />
 ## Credits
 
 https://www.w3schools.com/
+https://developer.mozilla.org/en-US/docs/Web/JavaScript
 
 ## License
 
