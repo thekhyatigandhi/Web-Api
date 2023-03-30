@@ -2,7 +2,7 @@
 
 ## Description
 
-This is a webpage to randomly generate a password for an employee to access sensitive data. The randomly generated password meets certain criteria so that it provides greater security. This app will run in the browser and will feature dynamically updated HTML and CSS powered by the JavaScript code
+This is an multiple choice quiz app, created using html, css, javascript and web apis. When the user clicks on the right answer, they are taken to the next question. Every wrong answer means they will loose 10 seconds. The score is equal to the time remaining. This quiz is a time based quiz.
 
 The link to the deployed page - https://thekhyatigandhi.github.io/Web-Api/
 
@@ -19,16 +19,12 @@ The following animation shows the web application's appearance and functionality
 
 ## Usage
 
-To use this website, click on generate password. When you click on that, there are certain prompts.<br />
-First - Select the length of your password, and it has to be more than 8 characters and less than 128 characters.<br />
-Next - Click ok if you would like to have uppercase characters, else click cancel.<br />
-Next - Click ok if you would like to have lowercase characters, else click cancel.<br />
-Next - Click ok if you would like to have numerical, else click cancel.<br />
-Next - Click ok if you would like to have special characters, else click cancel.<br />
-
-You must select at least one character type to proceed.
-
-Once you have responded to all the characters, you will be presented with a password with your selected criteria on the page.
+To use this website, read the instructions carefully and click on the start button. The first question will be displayed and the timer will start. You have 60 seconds to answer all the questions. Every wrong answer will deduct 10 seconds from your score. <br />
+Make sure you answer all the questions correctly to secure a place in the highscore.<br />
+When the quiz ends, you will be scored on the time remaining.<br />
+Enter your initials in the box provided. <br />
+If you want to replay, click on the replay button <br />
+To view the highscores click on the view highscore tab <br />
 
 ## Credits
 
