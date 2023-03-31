@@ -30,9 +30,9 @@ To view the highscores click on the view highscore tab <br />
 
 https://www.w3schools.com/ </br>
 https://developer.mozilla.org/en-US/docs/Web/JavaScript </br>
-Jose Lopez - My tutor who helped me with concept of javascript
+Jose Lopez - My tutor who helped me with the concept of javascript
 
 ## License
 
 MIT License.
-For more information on the license, please refer to the LICENSE in the repo
+For more information on the license, please refer to the LICENSE file in the repo
